@@ -1,11 +1,17 @@
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 let conf = {
-    entry: ['./src/js/homework.js', './src/css/style.less'],
+    entry: {
+        admin: './src/js/admin.js',
+        visitor: './src/js/visitor.js',
+        style: './src/css/style.less'
+    },
     output: {
-        filename: 'homework_bundle.js',
-        path: path.resolve(__dirname, 'build'),
+        filename: 'js/[name].js',
+        path: path.resolve(__dirname, 'build')
     },
     devServer: {
         contentBase: './build',
@@ -35,10 +41,35 @@ let conf = {
         ]
     },
     plugins: [
-        new ExtractTextPlugin({
-            filename: 'styles.css'
-        })
-    ]
+        new ExtractTextPlugin({filename: './css/styles.css'}),
+
+        new CleanWebpackPlugin(['build']),
+
+        new CopyWebpackPlugin(
+            [
+                {from: './src/html', to: './'}
+            ],
+            {
+                ignore: [
+                    {glob: 'fragments.html'}
+                ]
+            }
+        ),
+    ],
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                default: false,
+                vendors: false,
+                commons: {
+                    test: /\.js$/,
+                    chunks: 'all',
+                    name: 'common',
+                    enforce: true,
+                },
+            },
+        }
+    }
 };
 
 module.exports = (env, options) => {

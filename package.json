@@ -2,7 +2,7 @@
   "name": "webpack-homework",
   "version": "1.0.0",
   "description": "webpack homework",
-  "main": "src/js/homework.js",
+  "main": "src/js/admin.js",
   "dependencies": {
     "css-loader": "^1.0.0",
     "style-loader": "^0.22.1"
@@ -12,14 +12,14 @@
     "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-3": "^6.24.1",
+    "clean-webpack-plugin": "^0.1.19",
+    "copy-webpack-plugin": "^4.5.2",
     "eslint": "^5.4.0",
     "eslint-loader": "^2.1.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "html-es6-template-loader": "^1.0.5",
     "less": "^3.8.1",
     "less-loader": "^4.1.0",
-    "postcss-cssnext": "^3.1.0",
-    "postcss-import": "^12.0.0",
     "postcss-loader": "^3.0.0",
     "ts-loader": "^4.5.0",
     "typescript": "^3.0.1",
@@ -28,9 +28,9 @@
     "webpack-dev-server": "^3.1.6"
   },
   "scripts": {
-    "dev": "rm -rf build && webpack --mode development && cp src/index.html build",
-    "prod": "rm -rf build && webpack --mode production && cp src/index.html build",
-    "ds": "rm -rf build && mkdir build && cp src/index.html build && webpack-dev-server --mode development --open",
+    "dev": "webpack --mode development && rm build/js/style.js",
+    "prod": "webpack --mode production && rm build/js/style.js",
+    "ds": "webpack-dev-server --mode development --open",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
